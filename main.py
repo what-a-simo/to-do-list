@@ -1,3 +1,13 @@
+def show_tasks(tasks):
+    if not tasks:
+        print('Your to-do list is currently empty.')
+        return False
+
+    print('These are your tasks:')
+    for i, task in enumerate(tasks, 1):
+        print(f'{i}. {task}')
+    return True
+
 def main():
     print('\nHi! This is a to-do list application.')
 
@@ -10,40 +20,45 @@ def main():
         print('3.   View your tasks')
         print('4.   Exit\n')
 
-        choice = input('Your choice: ')
-        print(choice)
+        choice = input('Your choice: ').strip()
 
         match choice:
             case '1':
                 print('\n=========================== Add a task ===========================')
-                task = input('Write here your task: ')
-                tasks.append(task)
-                continue
+                task = input('Write here your task: ').strip()
+                if task:
+                    tasks.append(task)
+                    print('Task added successfully!')
+                else:
+                    print('Task cannot be empty.')
+
             case '2':
                 print('\n=========================== Remove a task ===========================')
-                print('These are your tasks:')
-                for i, task in enumerate(tasks, 1):
-                    print(f'{i}. {task}')
-                idx = int(input('Remove task (idx): '))
-                if 1 <= idx <= len(tasks):
-                    tasks.pop(idx - 1)
-                continue
+                if show_tasks(tasks):
+                    try:
+                        idx = int(input('Remove task (idx): '))
+                        if 1 <= idx <= len(tasks):
+                            removed = tasks.pop(idx - 1)
+                            print(f'Task "{removed}" removed successfully.')
+                        else:
+                            print('Invalid index. Task not found.')
+                    except ValueError:
+                        print('Please enter a valid number.')
+
             case '3':
                 print('\n=========================== View your tasks ===========================')
-                print('These are your tasks:')
-                for i, task in enumerate(tasks, 1):
-                    print(f'{i}. {task}')
-                continue
+                show_tasks(tasks)
+
             case '4':
                 print('\n=========================== Exit ===========================')
-                end = input('Are tou sure? (y/n) ')
+                end = input('Are tou sure? (y/n) ').strip().lower()
                 if end == 'y':
                     break
-                elif end == 'n':
-                    continue
-                else:
+                elif end != 'n':
                     print('Invalid input')
-                    continue
+
+            case _:
+                print('\nInvalid choice. Please enter a number between 1 and 4.')
 
     print('\nThanks for using my application!')
 
