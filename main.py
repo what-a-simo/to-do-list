@@ -8,7 +8,7 @@ def load_tasks():
         with (open(FILENAME, 'r') as file):
             return json.load(file)
     except (FileNotFoundError, json.JSONDecodeError):
-        return []
+        return {}
 
 def save_tasks(tasks):
     with open(FILENAME, 'w') as file:
@@ -20,8 +20,8 @@ def show_tasks(tasks):
         return False
 
     print('These are your tasks:')
-    for i, task in enumerate(tasks, 1):
-        print(f'{i}. {task}')
+    for i, (key, value) in enumerate(tasks.items(), 1):
+        print(f'{i}. {key} {value}')
     return True
 
 def main():
@@ -43,7 +43,7 @@ def main():
                 print('\n=========================== Add a task ===========================')
                 task = input('Write here your task: ').strip()
                 if task:
-                    tasks.append(task)
+                    tasks.update({task: '[ ]'})
                     save_tasks(tasks)
                     print('Task added successfully!')
                 else:
@@ -52,16 +52,10 @@ def main():
             case '2':
                 print('\n=========================== Remove a task ===========================')
                 if show_tasks(tasks):
-                    try:
-                        idx = int(input('Remove task (idx): '))
-                        if 1 <= idx <= len(tasks):
-                            removed = tasks.pop(idx - 1)
-                            save_tasks(tasks)
-                            print(f'Task "{removed}" removed successfully.')
-                        else:
-                            print('Invalid index. Task not found.')
-                    except ValueError:
-                        print('Please enter a valid number.')
+                    task = input('Remove task: ')
+                    removed = tasks.pop(task)
+                    save_tasks(tasks)
+                    print(f'Task "{removed}" removed successfully.')
 
             case '3':
                 print('\n=========================== View your tasks ===========================')
