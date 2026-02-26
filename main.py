@@ -24,6 +24,9 @@ def show_tasks(tasks):
         print(f'{i}. {key} {value}')
     return True
 
+def complete_task():
+    pass
+
 def main():
     print('\nHi! This is a to-do list application.')
 
@@ -34,7 +37,8 @@ def main():
         print('1.   Add a task')
         print('2.   Remove a task')
         print('3.   View your tasks')
-        print('4.   Exit\n')
+        print('4.   Complete a task')
+        print('5.   Exit\n')
 
         choice = input('Your choice: ').strip()
 
@@ -62,6 +66,9 @@ def main():
                 show_tasks(tasks)
 
             case '4':
+                complete_task()
+
+            case '5':
                 print('\n=========================== Exit ===========================')
                 end = input('Are tou sure? (y/n) ').strip().lower()
                 if end == 'y':
