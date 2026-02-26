@@ -1,3 +1,19 @@
+import json
+
+
+FILENAME = 'tasks.json'
+
+def load_tasks():
+    try:
+        with (open(FILENAME, 'r') as file):
+            return json.load(file)
+    except (FileNotFoundError, json.JSONDecodeError):
+        return []
+
+def save_tasks(tasks):
+    with open(FILENAME, 'w') as file:
+        json.dump(tasks, file, indent=4)
+
 def show_tasks(tasks):
     if not tasks:
         print('Your to-do list is currently empty.')
@@ -11,7 +27,7 @@ def show_tasks(tasks):
 def main():
     print('\nHi! This is a to-do list application.')
 
-    tasks = []
+    tasks = load_tasks()
 
     while True:
         print('\n=========================== What do you want to do? ===========================')
@@ -28,6 +44,7 @@ def main():
                 task = input('Write here your task: ').strip()
                 if task:
                     tasks.append(task)
+                    save_tasks(tasks)
                     print('Task added successfully!')
                 else:
                     print('Task cannot be empty.')
@@ -39,6 +56,7 @@ def main():
                         idx = int(input('Remove task (idx): '))
                         if 1 <= idx <= len(tasks):
                             removed = tasks.pop(idx - 1)
+                            save_tasks(tasks)
                             print(f'Task "{removed}" removed successfully.')
                         else:
                             print('Invalid index. Task not found.')
