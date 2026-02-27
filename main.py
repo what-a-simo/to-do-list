@@ -1,6 +1,5 @@
 import json
 
-
 FILENAME = 'tasks.json'
 
 
@@ -56,22 +55,30 @@ def main():
                 print('\n' + '=' * 27 + ' Add a task ' + '=' * 27)
                 task = input('Write here your task: ').strip()
                 if task:
-                    tasks.update({task: '[ ]'})
-                    save_tasks(tasks)
-                    print('Task added successfully!')
+                    if task not in tasks:
+                        tasks.update({task: '[ ]'})
+                        save_tasks(tasks)
+                        print('Task added successfully!')
+                    else:
+                        print('This task is already in your list!')
                 else:
                     print('Task cannot be empty.')
 
             case '2':
                 print('\n' + '=' * 27 + ' Remove a task ' + '=' * 27)
                 if show_tasks(tasks):
-                    task = input('Remove task (type exact name): ').strip()
-                    if task in tasks:
-                        tasks.pop(task)
-                        save_tasks(tasks)
-                        print(f'Task "{task}" removed successfully.')
-                    else:
-                        print(f'Task "{task}" not found.')
+                    try:
+                        idx = int(input('Remove task (number): ').strip())
+                        keys_list = list(tasks.keys())
+                        if 1 <= idx <= len(keys_list):
+                            task_to_remove = keys_list[idx - 1]
+                            tasks.pop(task_to_remove)
+                            save_tasks(tasks)
+                            print(f'Task "{task_to_remove}" removed successfully.')
+                        else:
+                            print('Invalid number. Task not found.')
+                    except ValueError:
+                        print('Please enter a valid number.')
 
             case '3':
                 print('\n' + '=' * 27 + ' View your tasks ' + '=' * 27)
@@ -80,9 +87,17 @@ def main():
             case '4':
                 print('\n' + '=' * 27 + ' Complete a task ' + '=' * 27)
                 if show_tasks(tasks):
-                    task = input('Choose which task do you want to complete: ')
-                    complete_task(task, tasks)
-                    save_tasks(tasks)
+                    try:
+                        idx = int(input('Choose which task to complete (number): ').strip())
+                        keys_list = list(tasks.keys())
+                        if 1 <= idx <= len(keys_list):
+                            task_to_complete = keys_list[idx - 1]
+                            complete_task(task_to_complete, tasks)
+                            save_tasks(tasks)
+                        else:
+                            print('Invalid number. Task not found.')
+                    except ValueError:
+                        print('Please enter a valid number.')
 
             case '5':
                 print('\n' + '=' * 27 + ' Exit ' + '=' * 27)
