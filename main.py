@@ -36,7 +36,7 @@ def complete_task(task, tasks):
 
 
 def main():
-    print('\nHi! This is a to-do list application.')
+    print('\nHi! This is my to-do list application.')
 
     tasks = load_tasks()
 
