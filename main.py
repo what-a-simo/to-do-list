@@ -28,8 +28,12 @@ def show_tasks(tasks):
     return True
 
 
-def complete_task(tasks):
-    pass
+def complete_task(task, tasks):
+    if task in tasks:
+        tasks[task] = '[X]'
+        print(f'Task "{task}" marked as completed!')
+    else:
+        print(f'Task "{task}" not found.')
 
 
 def main():
@@ -75,7 +79,10 @@ def main():
 
             case '4':
                 print('\n' + '=' * 27 + ' Complete a task ' + '=' * 27)
-                complete_task(tasks)
+                if show_tasks(tasks):
+                    task = input('Choose which task do you want to complete: ')
+                    complete_task(task, tasks)
+                    save_tasks(tasks)
 
             case '5':
                 print('\n' + '=' * 27 + ' Exit ' + '=' * 27)
