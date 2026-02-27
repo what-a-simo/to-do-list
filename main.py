@@ -42,11 +42,11 @@ def main():
 
     while True:
         print('\n' + '=' * 27 + ' What do you want to do? ' + '=' * 27)
-        print('1.   Add a task')
-        print('2.   Remove a task')
-        print('3.   View your tasks')
-        print('4.   Complete a task')
-        print('5.   Exit\n')
+        print('1.   Add a task.')
+        print('2.   Remove a task.')
+        print('3.   View your tasks.')
+        print('4.   Complete a task.')
+        print('5.   Exit.\n')
 
         choice = input('Your choice: ').strip()
 
