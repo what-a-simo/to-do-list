@@ -46,7 +46,7 @@ def main():
         print('2.   Remove a task.')
         print('3.   View your tasks.')
         print('4.   Complete a task.')
-        print('5.   Delete completed task.\n')
+        print('5.   Delete completed task.')
         print('6.   Exit.\n')
 
         choice = input('Your choice: ').strip()
@@ -101,7 +101,15 @@ def main():
                         print('Please enter a valid number.')
 
             case '5':
-                pass
+                print('\n' + '=' * 27 + ' Delete all completed task ' + '=' * 27)
+                deleted_tasks = []
+                for task, check in tasks.items():
+                    if check == '[X]':
+                        deleted_tasks.append(task)
+                for task in deleted_tasks:
+                    tasks.pop(task)
+                save_tasks(tasks)
+                print('Tasks deleted.')
 
             case '6':
                 print('\n' + '=' * 27 + ' Exit ' + '=' * 27)
