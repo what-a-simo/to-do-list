@@ -106,10 +106,13 @@ def main():
                 for task, check in tasks.items():
                     if check == '[X]':
                         deleted_tasks.append(task)
-                for task in deleted_tasks:
-                    tasks.pop(task)
-                save_tasks(tasks)
-                print('Tasks deleted.')
+                if deleted_tasks:
+                    for task in deleted_tasks:
+                        tasks.pop(task)
+                    save_tasks(tasks)
+                    print(f'{len(deleted_tasks)} completed task(s) deleted successfully.')
+                else:
+                    print('No completed tasks found to delete.')
 
             case '6':
                 print('\n' + '=' * 27 + ' Exit ' + '=' * 27)
@@ -120,7 +123,7 @@ def main():
                     print('Invalid input.')
 
             case _:
-                print('\nInvalid choice. Please enter a number between 1 and 5.')
+                print('\nInvalid choice. Please enter a number between 1 and 6.')
 
     print('\nThanks for using my application!')
 
