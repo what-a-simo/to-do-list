@@ -46,7 +46,8 @@ def main():
         print('2.   Remove a task.')
         print('3.   View your tasks.')
         print('4.   Complete a task.')
-        print('5.   Exit.\n')
+        print('5.   Delete completed task.\n')
+        print('6.   Exit.\n')
 
         choice = input('Your choice: ').strip()
 
@@ -100,6 +101,9 @@ def main():
                         print('Please enter a valid number.')
 
             case '5':
+                pass
+
+            case '6':
                 print('\n' + '=' * 27 + ' Exit ' + '=' * 27)
                 end = input('Are you sure? (y/n) ').strip().lower()
                 if end == 'y':
